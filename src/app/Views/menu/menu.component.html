@@ -1,0 +1,25 @@
+@let isHandset = this.isHandset();
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="isHandset ? 'dialog' : 'navigation'"
+    [mode]="isHandset ? 'over' : 'side'" [opened]="isHandset === false">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item href="usuarios">Usuarios</a>
+      <a mat-list-item href="inventarios">Inventarios</a>
+      <a mat-list-item href="compras">Compras</a>
+      <a mat-list-item href="clientes">Clientes</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar style="background-color: rgb(122, 58, 182);">
+      @if (isHandset) {
+      <button type="button" aria-label="Toggle sidenav" matIconButton (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      }
+      <span>Primer_proyecto</span>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
