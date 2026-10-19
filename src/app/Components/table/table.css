@@ -1,3 +1,22 @@
 table {
     width: 100%;
 }
+
+.badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: capitalize;
+    display: inline-block;
+}
+
+.badge.activo {
+    background-color: #e6f4ea;
+    color: #137333;
+}
+
+.badge.inactivo {
+    background-color: #fce8e6;
+    color: #c5221f;
+}

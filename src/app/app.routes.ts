@@ -6,7 +6,7 @@ import { Usuarios } from './Views/usuarios/usuarios';
 
 
 export const routes: Routes = [
-
+    { path: '', redirectTo: 'clientes', pathMatch: 'full' },
     { path: 'clientes', component: Clientes },
     { path: 'inventarios', component: Inventarios },
     { path: 'compras', component: Compras },

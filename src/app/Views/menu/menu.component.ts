@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -15,7 +15,7 @@ import { map } from 'rxjs/operators';
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css',
-  imports: [RouterOutlet, MatToolbarModule, MatButtonModule, MatSidenavModule, MatListModule, MatIconModule],
+  imports: [RouterOutlet, RouterLink, MatToolbarModule, MatButtonModule, MatSidenavModule, MatListModule, MatIconModule],
 })
 export class MenuComponent {
   private readonly breakpointObserver = inject(BreakpointObserver);
