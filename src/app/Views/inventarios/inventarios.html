@@ -1,1 +1,93 @@
-<p>inventarios works!</p>
+<div class="inventarios-container">
+  <div class="header-section">
+    <h2>Inventario de Componentes</h2>
+  </div>
+
+  <!-- Estado de carga -->
+  @if (loading()) {
+  <div class="loading-container">
+    <div class="spinner"></div>
+    <p>Cargando inventario...</p>
+  </div>
+  }
+
+  <!-- Mensaje de error -->
+  @if (error()) {
+  <div class="error-container">
+    <p>⚠️ {{ error() }}</p>
+    <button class="btn-retry" (click)="cargarComponentes()">Reintentar</button>
+  </div>
+  }
+
+  <!-- Tabla de datos -->
+  @if (!loading() && !error() && componentes().length > 0) {
+  <div class="table-wrapper">
+    <table mat-table [dataSource]="componentes()" class="mat-elevation-z2">
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ID </th>
+        <td mat-cell *matCellDef="let item"> {{item.id}} </td>
+      </ng-container>
+
+      <!-- Nombre Column -->
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let item" class="nombre-cell"> {{item.nombre}} </td>
+      </ng-container>
+
+      <!-- Marca Column -->
+      <ng-container matColumnDef="marca">
+        <th mat-header-cell *matHeaderCellDef> Marca </th>
+        <td mat-cell *matCellDef="let item"> {{item.marca}} </td>
+      </ng-container>
+
+      <!-- Categoría Column -->
+      <ng-container matColumnDef="categoria_nombre">
+        <th mat-header-cell *matHeaderCellDef> Categoría </th>
+        <td mat-cell *matCellDef="let item">
+          <span class="badge-categoria">{{item.categoria_nombre}}</span>
+        </td>
+      </ng-container>
+
+      <!-- Precio Column -->
+      <ng-container matColumnDef="precio">
+        <th mat-header-cell *matHeaderCellDef> Precio </th>
+        <td mat-cell *matCellDef="let item" class="precio-cell"> {{item.precio | currency:'USD':'symbol':'1.2-2'}} </td>
+      </ng-container>
+
+      <!-- Unidades Column -->
+      <ng-container matColumnDef="unidades">
+        <th mat-header-cell *matHeaderCellDef> Unidades </th>
+        <td mat-cell *matCellDef="let item">
+          <span [class]="'badge-stock ' + (item.unidades > 10 ? 'alto' : item.unidades > 0 ? 'bajo' : 'agotado')">
+            {{item.unidades}}
+          </span>
+        </td>
+      </ng-container>
+
+      <!-- Estado Column -->
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef> Estado </th>
+        <td mat-cell *matCellDef="let item">
+          <span [class]="'badge ' + item.estado">{{item.estado}}</span>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <div class="summary">
+    <p>Total de componentes: <strong>{{componentes().length}}</strong></p>
+  </div>
+  }
+
+  <!-- Sin datos -->
+  @if (!loading() && !error() && componentes().length === 0) {
+  <div class="empty-container">
+    <p>No hay componentes registrados en el inventario.</p>
+  </div>
+  }
+</div>

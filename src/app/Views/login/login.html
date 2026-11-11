@@ -1,0 +1,86 @@
+<div class="login-wrapper">
+  <div class="login-card">
+
+    <!-- Encabezado con Icono y Título -->
+    <div class="login-header">
+      <div class="avatar-badge">
+        <mat-icon>lock_outline</mat-icon>
+      </div>
+      <h2 class="title">Iniciar Sesión</h2>
+      <p class="subtitle">Ingresa tus credenciales para acceder al sistema</p>
+    </div>
+
+    <!-- Formulario Visual -->
+    <form class="login-form">
+
+    <!-- Formulario conectado con la función iniciarSesion -->
+    <form class="login-form" (ngSubmit)="iniciarSesion()">
+
+      <!-- Campo: Correo Electrónico / Usuario -->
+      <div class="input-group">
+        <label for="email" class="input-label">Usuario o Correo</label>
+        <div class="input-container">
+          <mat-icon class="input-icon">mail_outline</mat-icon>
+          <input
+            id="email"
+            type="text"
+            name="usuario"
+            [(ngModel)]="usuario"
+            class="custom-input"
+            placeholder="Ingresa tu usuario"
+            autocomplete="username"
+          />
+        </div>
+      </div>
+
+      <!-- Campo: Contraseña -->
+      <div class="input-group">
+        <div class="label-row">
+          <label for="password" class="input-label">Contraseña</label>
+          <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
+        </div>
+        <div class="input-container">
+          <mat-icon class="input-icon">lock_open</mat-icon>
+          <input
+            id="password"
+            name="contrasena"
+            [(ngModel)]="contrasena"
+            [type]="hidePassword ? 'password' : 'text'"
+            class="custom-input"
+            placeholder="••••••••••••"
+            autocomplete="current-password"
+          />
+          <button
+            type="button"
+            class="toggle-password-btn"
+            (click)="hidePassword = !hidePassword"
+            [attr.aria-label]="hidePassword ? 'Mostrar contraseña' : 'Ocultar contraseña'"
+          >
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Opciones Adicionales: Recordarme -->
+      <div class="remember-row">
+        <label class="remember-label">
+          <input type="checkbox" class="custom-checkbox" />
+          <span>Recordar mi sesión</span>
+        </label>
+      </div>
+
+      <!-- Botón de Envío -->
+      <button type="submit" class="btn-primary">
+        <mat-icon class="btn-icon">login</mat-icon>
+        <span>Ingresar</span>
+      </button>
+
+    </form>
+
+    <!-- Pie de Tarjeta -->
+    <div class="login-footer">
+      <p>¿No tienes una cuenta aún? <a href="#" class="register-link">Regístrate</a></p>
+    </div>
+
+  </div>
+</div>
