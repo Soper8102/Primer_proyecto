@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, signal } from '@angular/core';
 import { Table } from '../../Components/table/table';
 import { ClientesService } from '../../Services/clientes';
 import { Cliente } from '../../Models/ClientesModels';
@@ -10,10 +10,11 @@ import { Cliente } from '../../Models/ClientesModels';
   templateUrl: './clientes.html',
 })
 export class Clientes implements OnInit {
-  clientes: Cliente[] = [];
+  clientes = signal<Cliente[]>([]);
 
   constructor(
-    private clientesService: ClientesService
+    private clientesService: ClientesService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -23,7 +24,8 @@ export class Clientes implements OnInit {
   cargarClientes(): void {
     this.clientesService.getClients().subscribe({
       next: (data: Cliente[]) => {
-        this.clientes = data;
+        this.clientes.set(data);
+        this.cdr.markForCheck();
         console.log('Clientes recibidos del backend:', data);
       },
       error: (error) => {
