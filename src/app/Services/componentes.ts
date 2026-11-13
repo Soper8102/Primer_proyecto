@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Componente } from '../Models/ComponenteModels';
+import { API_BASE_URL } from '../config/api.config';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ComponentesService {
-    private readonly baseUrl = 'http://localhost:3000/api/v1/componentes';
+    private readonly baseUrl = `${API_BASE_URL}/api/v1/componentes`;
 
     constructor(private http: HttpClient) { }
 
