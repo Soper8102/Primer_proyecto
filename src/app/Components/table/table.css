@@ -1,22 +1,60 @@
-table {
-    width: 100%;
+.generic-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 8px;
+  background-color: #ffffff;
 }
 
+.generic-mat-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-header {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #333333;
+  background-color: #f8f9fa;
+  padding: 12px 16px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.table-cell {
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  color: #444444;
+}
+
+.no-data-cell {
+  text-align: center;
+  padding: 24px;
+  color: #777777;
+  font-style: italic;
+}
+
+/* Badges de estado reutilizables */
 .badge {
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    text-transform: capitalize;
-    display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: capitalize;
+  display: inline-block;
 }
 
-.badge.activo {
-    background-color: #e6f4ea;
-    color: #137333;
+.badge.activo,
+.badge.disponible {
+  background-color: #e6f4ea;
+  color: #137333;
 }
 
-.badge.inactivo {
-    background-color: #fce8e6;
-    color: #c5221f;
+.badge.inactivo,
+.badge.agotado {
+  background-color: #fce8e6;
+  color: #c5221f;
+}
+
+.badge.descontinuado {
+  background-color: #f1f3f4;
+  color: #5f6368;
 }

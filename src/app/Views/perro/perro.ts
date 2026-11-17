@@ -1,20 +1,29 @@
 import { Component, OnInit, ChangeDetectorRef, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { Table } from '../../Components/table/table';
 import { PerrosService } from '../../Services/perros';
 import { Perro } from '../../Models/PerroModels';
 
 @Component({
-  imports: [CommonModule, MatTableModule, MatCardModule, MatIconModule],
+  imports: [CommonModule, MatCardModule, MatIconModule, Table],
   selector: 'app-perro',
   styleUrl: './perro.css',
   templateUrl: './perro.html',
 })
 export class PerroComponent implements OnInit {
   perros = signal<Perro[]>([]);
-  displayedColumns: string[] = ['id', 'nombre', 'edad', 'raza', 'color'];
+
+  // Configuración para la tabla genérica
+  columnasPerros = [
+    { key: 'id', header: 'ID' },
+    { key: 'nombre', header: 'Nombre' },
+    { key: 'edad', header: 'Edad (años)' },
+    { key: 'raza', header: 'Raza' },
+    { key: 'color', header: 'Color' }
+  ];
+
   loading = signal<boolean>(true);
   error = signal<string>('');
 

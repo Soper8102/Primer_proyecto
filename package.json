@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "node dist/Primer_proyecto/server/server.mjs",
-    "dev": "ng serve",
+    "start": "ng serve --port 4200",
+    "dev": "ng serve --port 4200",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "serve:ssr": "node dist/Primer_proyecto/server/server.mjs",
     "serve:ssr:Primer_proyecto": "node dist/Primer_proyecto/server/server.mjs"
   },
   "private": true,
@@ -28,6 +29,7 @@
     "@angular/ssr": "^22.1.8",
     "express": "^5.1.0",
     "rxjs": "~7.8.0",
+    "sweetalert2": "^11.26.25",
     "tslib": "^2.3.0",
     "typescript": "~6.0.2"
   },

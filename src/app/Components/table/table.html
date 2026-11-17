@@ -1,49 +1,38 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z2">
+<div class="generic-table-wrapper mat-elevation-z2">
+  <table mat-table [dataSource]="dataSource" class="generic-mat-table">
 
-    <!-- ID Column -->
-    <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> ID </th>
-        <td mat-cell *matCellDef="let cliente"> {{cliente.id}} </td>
-    </ng-container>
-
-    <!-- Nombre Column -->
-    <ng-container matColumnDef="nombre">
-        <th mat-header-cell *matHeaderCellDef> Nombre </th>
-        <td mat-cell *matCellDef="let cliente"> {{cliente.nombre}} </td>
-    </ng-container>
-
-    <!-- Apellido Column -->
-    <ng-container matColumnDef="apellido">
-        <th mat-header-cell *matHeaderCellDef> Apellido </th>
-        <td mat-cell *matCellDef="let cliente"> {{cliente.apellido}} </td>
-    </ng-container>
-
-    <!-- Email Column -->
-    <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef> Correo Electrónico </th>
-        <td mat-cell *matCellDef="let cliente"> {{cliente.email}} </td>
-    </ng-container>
-
-    <!-- Telefono Column -->
-    <ng-container matColumnDef="telefono">
-        <th mat-header-cell *matHeaderCellDef> Teléfono </th>
-        <td mat-cell *matCellDef="let cliente"> {{cliente.telefono}} </td>
-    </ng-container>
-
-    <!-- Direccrión Column -->
-    <ng-container matColumnDef="direccion">
-        <th mat-header-cell *matHeaderCellDef> Dirección </th>
-        <td mat-cell *matCellDef="let cliente"> {{cliente.direccion}} </td>
-    </ng-container>
-
-    <!-- Estado Column -->
-    <ng-container matColumnDef="estado">
-        <th mat-header-cell *matHeaderCellDef> Estado </th>
-        <td mat-cell *matCellDef="let cliente">
-            <span [class]="'badge ' + cliente.estado">{{cliente.estado}}</span>
+    <!-- Columnas dinámicas generadas según los datos o la configuración -->
+    @for (col of effectiveColumns; track col.key) {
+      <ng-container [matColumnDef]="col.key">
+        <th mat-header-cell *matHeaderCellDef class="table-header">
+          {{ col.header }}
+        </th>
+        <td mat-cell *matCellDef="let element" class="table-cell">
+          <!-- Renderizado especial para columnas de estado/badge -->
+          @if (col.key === 'estado') {
+            <span class="badge" [ngClass]="element[col.key]">
+              {{ element[col.key] }}
+            </span>
+          } @else if (col.key === 'precio') {
+            <!-- Formato de moneda para precios -->
+            ${{ element[col.key] }}
+          } @else {
+            {{ element[col.key] }}
+          }
         </td>
-    </ng-container>
+      </ng-container>
+    }
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let cliente; columns: displayedColumns;"></tr>
-</table>
+    <!-- Filas de encabezado y datos -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumnKeys"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumnKeys;"></tr>
+
+    <!-- Fila vacía cuando no hay registros -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell no-data-cell" [attr.colspan]="displayedColumnKeys.length">
+        No hay datos para mostrar.
+      </td>
+    </tr>
+
+  </table>
+</div>

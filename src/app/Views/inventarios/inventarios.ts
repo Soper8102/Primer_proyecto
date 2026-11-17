@@ -1,18 +1,29 @@
 import { Component, OnInit, ChangeDetectorRef, signal } from '@angular/core';
-import { CommonModule, CurrencyPipe } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
+import { CommonModule } from '@angular/common';
+import { Table } from '../../Components/table/table';
 import { ComponentesService } from '../../Services/componentes';
 import { Componente } from '../../Models/ComponenteModels';
 
 @Component({
-  imports: [CommonModule, MatTableModule, CurrencyPipe],
+  imports: [CommonModule, Table],
   selector: 'app-inventarios',
   styleUrl: './inventarios.css',
   templateUrl: './inventarios.html',
 })
 export class Inventarios implements OnInit {
   componentes = signal<Componente[]>([]);
-  displayedColumns: string[] = ['id', 'nombre', 'marca', 'categoria_nombre', 'precio', 'unidades', 'estado'];
+
+  // Configuración para la tabla genérica
+  columnasInventario = [
+    { key: 'id', header: 'ID' },
+    { key: 'nombre', header: 'Componente' },
+    { key: 'marca', header: 'Marca' },
+    { key: 'categoria_nombre', header: 'Categoría' },
+    { key: 'precio', header: 'Precio' },
+    { key: 'unidades', header: 'Stock' },
+    { key: 'estado', header: 'Estado' }
+  ];
+
   loading = signal<boolean>(true);
   error = signal<string>('');
 

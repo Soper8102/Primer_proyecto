@@ -1,83 +1,144 @@
-<div class="login-wrapper">
-  <div class="login-card">
+<div class="auth-container">
+  <mat-card class="auth-card">
+    <mat-card-header>
+      <mat-card-title class="auth-title">
+        <mat-icon class="header-icon">{{ esRegistro ? 'person_add' : 'lock' }}</mat-icon>
+        <h2>{{ esRegistro ? 'Registro de Usuario' : 'Iniciar Sesión' }}</h2>
+      </mat-card-title>
+    </mat-card-header>
 
-    <!-- Encabezado con Icono y Título -->
-    <div class="login-header">
-      <div class="avatar-badge">
-        <mat-icon>lock_outline</mat-icon>
-      </div>
-      <h2 class="title">Iniciar Sesión</h2>
-      <p class="subtitle">Ingresa tus credenciales para acceder al sistema</p>
-    </div>
+    <mat-card-content>
+      <!-- ========================================== -->
+      <!-- 1. FORMULARIO DE INICIO DE SESIÓN         -->
+      <!-- ========================================== -->
+      @if (!esRegistro) {
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="form-layout">
+          <!-- Campo Usuario / Correo -->
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Usuario o Correo</mat-label>
+            <input matInput formControlName="usuario" placeholder="ejemplo@correo.com" autocomplete="username">
+            <mat-icon matPrefix>person</mat-icon>
+            @if (loginForm.get('usuario')?.touched && loginForm.get('usuario')?.hasError('required')) {
+              <mat-error>El usuario o correo es obligatorio</mat-error>
+            }
+          </mat-form-field>
 
-    <!-- Formulario conectado con la función iniciarSesion -->
-    <form class="login-form" (ngSubmit)="iniciarSesion()">
+          <!-- Campo Contraseña -->
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Contraseña</mat-label>
+            <input 
+              matInput 
+              [type]="ocultarPassword ? 'password' : 'text'" 
+              formControlName="contrasena" 
+              autocomplete="current-password"
+            >
+            <mat-icon matPrefix>lock</mat-icon>
+            <button 
+              mat-icon-button 
+              matSuffix 
+              type="button" 
+              (click)="ocultarPassword = !ocultarPassword"
+            >
+              <mat-icon>{{ ocultarPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            @if (loginForm.get('contrasena')?.touched && loginForm.get('contrasena')?.hasError('required')) {
+              <mat-error>La contraseña es obligatoria</mat-error>
+            }
+          </mat-form-field>
 
-      <!-- Campo: Correo Electrónico / Usuario -->
-      <div class="input-group">
-        <label for="email" class="input-label">Usuario o Correo</label>
-        <div class="input-container">
-          <mat-icon class="input-icon">mail_outline</mat-icon>
-          <input
-            id="email"
-            type="text"
-            name="usuario"
-            [(ngModel)]="usuario"
-            class="custom-input"
-            placeholder="Ingresa tu usuario"
-            autocomplete="username"
-          />
-        </div>
-      </div>
-
-      <!-- Campo: Contraseña -->
-      <div class="input-group">
-        <div class="label-row">
-          <label for="password" class="input-label">Contraseña</label>
-          <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
-        </div>
-        <div class="input-container">
-          <mat-icon class="input-icon">lock_open</mat-icon>
-          <input
-            id="password"
-            name="contrasena"
-            [(ngModel)]="contrasena"
-            [type]="hidePassword ? 'password' : 'text'"
-            class="custom-input"
-            placeholder="••••••••••••"
-            autocomplete="current-password"
-          />
-          <button
-            type="button"
-            class="toggle-password-btn"
-            (click)="hidePassword = !hidePassword"
-            [attr.aria-label]="hidePassword ? 'Mostrar contraseña' : 'Ocultar contraseña'"
-          >
-            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          <!-- Botón de Ingreso -->
+          <button mat-raised-button color="primary" type="submit" class="w-100 btn-action">
+            Iniciar Sesión
           </button>
-        </div>
+        </form>
+      }
+
+      <!-- ========================================== -->
+      <!-- 2. FORMULARIO DE REGISTRO                  -->
+      <!-- ========================================== -->
+      @if (esRegistro) {
+        <form [formGroup]="registroForm" (ngSubmit)="onRegistro()" class="form-layout">
+          <!-- Campo Correo -->
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Correo Electrónico</mat-label>
+            <input matInput type="email" formControlName="usuario" placeholder="usuario@correo.com" autocomplete="email">
+            <mat-icon matPrefix>email</mat-icon>
+            @if (registroForm.get('usuario')?.touched && registroForm.get('usuario')?.hasError('required')) {
+              <mat-error>El correo es obligatorio</mat-error>
+            }
+            @if (registroForm.get('usuario')?.touched && registroForm.get('usuario')?.hasError('email')) {
+              <mat-error>Ingresa un correo electrónico válido</mat-error>
+            }
+          </mat-form-field>
+
+          <!-- Campo Contraseña -->
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Contraseña</mat-label>
+            <input 
+              matInput 
+              [type]="ocultarPassword ? 'password' : 'text'" 
+              formControlName="contrasena" 
+              autocomplete="new-password"
+            >
+            <mat-icon matPrefix>lock</mat-icon>
+            <button 
+              mat-icon-button 
+              matSuffix 
+              type="button" 
+              (click)="ocultarPassword = !ocultarPassword"
+            >
+              <mat-icon>{{ ocultarPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            @if (registroForm.get('contrasena')?.touched && registroForm.get('contrasena')?.hasError('required')) {
+              <mat-error>La contraseña es obligatoria</mat-error>
+            }
+            @if (registroForm.get('contrasena')?.touched && registroForm.get('contrasena')?.hasError('passwordInsegura')) {
+              <mat-error>Mínimo 8 caracteres, 1 mayúscula, 1 minúscula, 1 número y 1 símbolo</mat-error>
+            }
+          </mat-form-field>
+
+          <!-- Campo Confirmar Contraseña -->
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Confirmar Contraseña</mat-label>
+            <input 
+              matInput 
+              [type]="ocultarConfirmPassword ? 'password' : 'text'" 
+              formControlName="confirmarContrasena" 
+              autocomplete="new-password"
+            >
+            <mat-icon matPrefix>lock_outline</mat-icon>
+            <button 
+              mat-icon-button 
+              matSuffix 
+              type="button" 
+              (click)="ocultarConfirmPassword = !ocultarConfirmPassword"
+            >
+              <mat-icon>{{ ocultarConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            @if (registroForm.get('confirmarContrasena')?.touched && registroForm.get('confirmarContrasena')?.hasError('required')) {
+              <mat-error>Debes confirmar la contraseña</mat-error>
+            }
+            @if (registroForm.get('confirmarContrasena')?.touched && registroForm.get('confirmarContrasena')?.hasError('noCoincide')) {
+              <mat-error>Las contraseñas no coinciden</mat-error>
+            }
+          </mat-form-field>
+
+          <!-- Botón de Registro -->
+          <button mat-raised-button color="primary" type="submit" class="w-100 btn-action">
+            Registrarse
+          </button>
+        </form>
+      }
+
+      <!-- Alternador de vista (Login <-> Registro) -->
+      <div class="toggle-section">
+        <p>
+          {{ esRegistro ? '¿Ya tienes una cuenta?' : '¿No tienes una cuenta aún?' }}
+          <button mat-button color="accent" type="button" (click)="alternarVista()">
+            {{ esRegistro ? 'Inicia Sesión' : 'Regístrate aquí' }}
+          </button>
+        </p>
       </div>
-
-      <!-- Opciones Adicionales: Recordarme -->
-      <div class="remember-row">
-        <label class="remember-label">
-          <input type="checkbox" class="custom-checkbox" />
-          <span>Recordar mi sesión</span>
-        </label>
-      </div>
-
-      <!-- Botón de Envío -->
-      <button type="submit" class="btn-primary">
-        <mat-icon class="btn-icon">login</mat-icon>
-        <span>Ingresar</span>
-      </button>
-
-    </form>
-
-    <!-- Pie de Tarjeta -->
-    <div class="login-footer">
-      <p>¿No tienes una cuenta aún? <a href="#" class="register-link">Regístrate</a></p>
-    </div>
-
-  </div>
+    </mat-card-content>
+  </mat-card>
 </div>
