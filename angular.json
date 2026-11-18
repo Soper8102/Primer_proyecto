@@ -32,7 +32,7 @@
               "fonts": false
             },
             "security": {
-              "allowedHosts": []
+              "allowedHosts": ["*.up.railway.app", "*.railway.app", "localhost", "127.0.0.1"]
             },
             "ssr": {
               "entry": "src/server.ts"
