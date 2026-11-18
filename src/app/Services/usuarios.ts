@@ -11,6 +11,17 @@ export class UsuarioService {
     private url = `${API_BASE_URL}/api/usuarios`;
     constructor(private http: HttpClient) { }
 
+    // Iniciar sesión
+    login(data: Partial<Usuario>): Observable<any> {
+        return this.http.post<any>(`${this.url}/login`, data);
+    }
+
+    // Registrar nuevo usuario
+    registro(data: Partial<Usuario>): Observable<any> {
+        return this.http.post<any>(`${this.url}/registro`, data);
+    }
+
+    // Método previo por compatibilidad
     postUsuarios(data: Partial<Usuario>): Observable<Usuario> {
         return this.http.post<Usuario>(this.url, data);
     }

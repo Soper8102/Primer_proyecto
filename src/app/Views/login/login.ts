@@ -15,6 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import Swal from 'sweetalert2';
+import { UsuarioService } from '../../Services/usuarios';
 
 @Component({
   selector: 'app-login',
@@ -34,6 +35,7 @@ import Swal from 'sweetalert2';
 export class LoginComponent {
   private fb = inject(FormBuilder);
   private router = inject(Router);
+  private usuarioService = inject(UsuarioService);
 
   // Bandera para alternar entre el formulario de Login y Registro
   esRegistro: boolean = false;
@@ -107,16 +109,27 @@ export class LoginComponent {
       return;
     }
 
-    console.log('Datos Login:', this.loginForm.value);
+    const { usuario, contrasena } = this.loginForm.value;
 
-    // Disparar modal de SweetAlert2
-    Swal.fire({
-      icon: 'success',
-      title: '¡Bienvenido!',
-      text: 'Inicio de sesión exitoso',
-      confirmButtonColor: '#3f51b5'
-    }).then(() => {
-      this.router.navigate(['/clientes']);
+    this.usuarioService.login({ usuario, contrasena }).subscribe({
+      next: (res) => {
+        Swal.fire({
+          icon: 'success',
+          title: '¡Bienvenido!',
+          text: 'Inicio de sesión exitoso',
+          confirmButtonColor: '#3f51b5'
+        }).then(() => {
+          this.router.navigate(['/clientes']);
+        });
+      },
+      error: (err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error de acceso',
+          text: err.error?.message || 'Usuario o contraseña incorrectos',
+          confirmButtonColor: '#3f51b5'
+        });
+      }
     });
   }
 
@@ -126,18 +139,28 @@ export class LoginComponent {
       return;
     }
 
-    console.log('Datos Registro:', this.registroForm.value);
+    const { usuario, contrasena } = this.registroForm.value;
 
-    // Disparar modal de SweetAlert2
-    Swal.fire({
-      icon: 'success',
-      title: '¡Completado!',
-      text: 'Registro exitoso',
-      confirmButtonColor: '#3f51b5'
-    }).then(() => {
-      // Regresamos al formulario de login y limpiamos campos
-      this.esRegistro = false;
-      this.registroForm.reset();
+    this.usuarioService.registro({ usuario, contrasena }).subscribe({
+      next: (res) => {
+        Swal.fire({
+          icon: 'success',
+          title: '¡Completado!',
+          text: 'Registro exitoso. Ya puedes iniciar sesión',
+          confirmButtonColor: '#3f51b5'
+        }).then(() => {
+          this.esRegistro = false;
+          this.registroForm.reset();
+        });
+      },
+      error: (err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error de registro',
+          text: err.error?.message || 'No se pudo registrar el usuario',
+          confirmButtonColor: '#3f51b5'
+        });
+      }
     });
   }
 
