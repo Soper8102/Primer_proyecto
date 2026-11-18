@@ -1,6 +1,7 @@
 .generic-table-wrapper {
   width: 100%;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   border-radius: 14px;
   background-color: #ffffff;
   border: 1px solid #e2e8f0;
@@ -9,6 +10,7 @@
 
 .generic-mat-table {
   width: 100%;
+  min-width: 580px;
   border-collapse: separate;
   border-spacing: 0;
 }
@@ -83,4 +85,26 @@ tr.mat-row:last-child .table-cell {
   background-color: #f1f5f9;
   color: #475569;
   border: 1px solid #cbd5e1;
+}
+
+@media (max-width: 640px) {
+  .table-header {
+    padding: 12px 14px;
+    font-size: 0.72rem;
+  }
+
+  .table-cell {
+    padding: 12px 14px;
+    font-size: 0.82rem;
+  }
+
+  .badge {
+    padding: 3px 8px;
+    font-size: 0.72rem;
+  }
+
+  .no-data-cell {
+    padding: 28px 16px;
+    font-size: 0.85rem;
+  }
 }

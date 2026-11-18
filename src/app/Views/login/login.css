@@ -88,3 +88,35 @@
   font-weight: 600;
   color: #4f46e5 !important;
 }
+
+@media (max-width: 480px) {
+  .auth-container {
+    padding: 1rem 0.5rem;
+    min-height: calc(100vh - 100px);
+  }
+
+  .auth-card {
+    padding: 1.5rem 1.25rem;
+    border-radius: 16px;
+  }
+
+  .auth-title {
+    margin-bottom: 1.5rem;
+  }
+
+  .auth-title h2 {
+    font-size: 1.3rem;
+  }
+
+  .header-icon {
+    font-size: 26px;
+    width: 26px;
+    height: 26px;
+    padding: 8px;
+  }
+
+  .btn-action {
+    font-size: 0.95rem;
+    padding: 0.75rem !important;
+  }
+}

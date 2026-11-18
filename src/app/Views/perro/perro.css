@@ -7,7 +7,7 @@
 }
 
 .title-with-icon h2 {
-  font-size: 1.6rem;
+  font-size: clamp(1.25rem, 3.5vw, 1.6rem);
   font-weight: 700;
   color: #0f172a;
   letter-spacing: -0.02em;
