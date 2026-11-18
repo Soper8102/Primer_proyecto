@@ -1,19 +1,21 @@
 .clientes-container {
-  padding: 24px;
+  padding: 8px 0;
 }
 
 .header-section {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .header-section h2 {
   margin: 0 0 6px 0;
-  font-size: 1.5rem;
-  color: #333;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.02em;
 }
 
 .header-section p {
   margin: 0;
-  color: #666;
-  font-size: 0.9rem;
+  color: #64748b;
+  font-size: 0.95rem;
 }

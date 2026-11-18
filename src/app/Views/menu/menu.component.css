@@ -1,17 +1,129 @@
 .sidenav-container {
-  height: 100%;
+  height: 100vh;
+  background-color: #f8fafc;
 }
 
+/* ── Sidenav / Menú lateral ── */
 .sidenav {
-  width: 200px;
+  width: 250px;
+  background-color: #ffffff;
+  border-right: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
 }
 
-.sidenav .mat-toolbar {
-  background: inherit;
+.sidenav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 16px;
+  border-bottom: 1px solid #f1f5f9;
 }
 
-.mat-toolbar.mat-primary {
+.brand-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.brand-avatar mat-icon {
+  font-size: 22px;
+  width: 22px;
+  height: 22px;
+}
+
+.brand-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #0f172a;
+}
+
+.brand-subtitle {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.nav-list {
+  padding: 12px 8px;
+}
+
+.nav-list a[mat-list-item] {
+  border-radius: 10px;
+  margin-bottom: 4px;
+  color: #475569;
+  font-weight: 500;
+}
+
+.nav-list a[mat-list-item]:hover {
+  background-color: #f1f5f9;
+  color: #0f172a;
+}
+
+.nav-list a.active-nav-item {
+  background-color: #ede9fe;
+  color: #4f46e5;
+  font-weight: 600;
+}
+
+.nav-list a.active-nav-item mat-icon {
+  color: #4f46e5;
+}
+
+.nav-divider {
+  height: 1px;
+  background-color: #e2e8f0;
+  margin: 16px 8px;
+}
+
+/* ── Top Navbar ── */
+.top-navbar {
+  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 10;
+  height: 60px;
+}
+
+.navbar-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
+}
+
+.toggle-btn {
+  margin-right: 8px;
+  color: #ffffff;
+}
+
+/* ── Contenedor de páginas ── */
+.main-content-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.page-container {
+  flex: 1;
+  padding: 24px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (max-width: 600px) {
+  .page-container {
+    padding: 16px;
+  }
 }

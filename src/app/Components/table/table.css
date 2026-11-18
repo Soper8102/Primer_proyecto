@@ -1,60 +1,86 @@
 .generic-table-wrapper {
   width: 100%;
   overflow-x: auto;
-  border-radius: 8px;
+  border-radius: 14px;
   background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -2px rgba(0, 0, 0, 0.02);
 }
 
 .generic-mat-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
 }
 
+/* ── Encabezado de la tabla ── */
 .table-header {
   font-weight: 600;
-  font-size: 0.9rem;
-  color: #333333;
-  background-color: #f8f9fa;
-  padding: 12px 16px;
-  border-bottom: 2px solid #e0e0e0;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  background-color: #f8fafc;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e2e8f0;
 }
 
+/* ── Celdas de datos ── */
 .table-cell {
-  padding: 12px 16px;
+  padding: 16px 20px;
   font-size: 0.9rem;
-  color: #444444;
+  color: #334155;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+/* Efecto hover suave en las filas */
+tr.mat-row {
+  transition: background-color 0.15s ease;
+}
+
+tr.mat-row:hover {
+  background-color: #f8fafc;
+}
+
+tr.mat-row:last-child .table-cell {
+  border-bottom: none;
 }
 
 .no-data-cell {
   text-align: center;
-  padding: 24px;
-  color: #777777;
-  font-style: italic;
+  padding: 40px;
+  color: #94a3b8;
+  font-size: 0.95rem;
 }
 
-/* Badges de estado reutilizables */
+/* ── Badges armónicos y modernos ── */
 .badge {
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 0.8rem;
-  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 600;
   text-transform: capitalize;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .badge.activo,
 .badge.disponible {
-  background-color: #e6f4ea;
-  color: #137333;
+  background-color: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
 }
 
 .badge.inactivo,
 .badge.agotado {
-  background-color: #fce8e6;
-  color: #c5221f;
+  background-color: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
 }
 
 .badge.descontinuado {
-  background-color: #f1f3f4;
-  color: #5f6368;
+  background-color: #f1f5f9;
+  color: #475569;
+  border: 1px solid #cbd5e1;
 }
