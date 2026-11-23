@@ -12,18 +12,6 @@ import { Componente } from '../../Models/ComponenteModels';
 })
 export class Inventarios implements OnInit {
   componentes = signal<Componente[]>([]);
-
-  // Configuración para la tabla genérica
-  columnasInventario = [
-    { key: 'id', header: 'ID' },
-    { key: 'nombre', header: 'Componente' },
-    { key: 'marca', header: 'Marca' },
-    { key: 'categoria_nombre', header: 'Categoría' },
-    { key: 'precio', header: 'Precio' },
-    { key: 'unidades', header: 'Stock' },
-    { key: 'estado', header: 'Estado' }
-  ];
-
   loading = signal<boolean>(true);
   error = signal<string>('');
 

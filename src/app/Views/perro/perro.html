@@ -25,7 +25,7 @@
   <!-- Tabla de datos genérica -->
   @if (!loading() && !error() && perros().length > 0) {
   <div class="table-wrapper">
-    <app-table [dataSource]="perros()" [columns]="columnasPerros"></app-table>
+    <app-table [dataSource]="perros()"></app-table>
   </div>
 
   <div class="summary">

@@ -1,35 +1,31 @@
 <div class="generic-table-wrapper mat-elevation-z2">
   <table mat-table [dataSource]="dataSource" class="generic-mat-table">
 
-    <!-- Columnas dinámicas generadas según los datos o la configuración -->
-    @for (col of effectiveColumns; track col.key) {
-      <ng-container [matColumnDef]="col.key">
+    <!-- Columnas dinámicas generadas automáticamente a partir de las claves del JSON -->
+    @for (col of displayedColumns; track col) {
+      <ng-container [matColumnDef]="col">
         <th mat-header-cell *matHeaderCellDef class="table-header">
-          {{ col.header }}
+          {{ formatHeader(col) }}
         </th>
         <td mat-cell *matCellDef="let element" class="table-cell">
-          <!-- Renderizado especial para columnas de estado/badge -->
-          @if (col.key === 'estado') {
-            <span class="badge" [ngClass]="element[col.key]">
-              {{ element[col.key] }}
+          @if (col === 'estado') {
+            <span class="badge" [ngClass]="element[col]">
+              {{ element[col] }}
             </span>
-          } @else if (col.key === 'precio') {
-            <!-- Formato de moneda para precios -->
-            ${{ element[col.key] }}
           } @else {
-            {{ element[col.key] }}
+            {{ element[col] }}
           }
         </td>
       </ng-container>
     }
 
     <!-- Filas de encabezado y datos -->
-    <tr mat-header-row *matHeaderRowDef="displayedColumnKeys"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumnKeys;"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
     <!-- Fila vacía cuando no hay registros -->
     <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell no-data-cell" [attr.colspan]="displayedColumnKeys.length">
+      <td class="mat-cell no-data-cell" [attr.colspan]="displayedColumns.length || 1">
         No hay datos para mostrar.
       </td>
     </tr>

@@ -1,11 +1,6 @@
-import { Component, Input, OnChanges, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
-
-export interface TableColumn {
-  key: string;     // Propiedad del objeto (ej. 'nombre', 'precio')
-  header: string;  // Título visible de la columna (ej. 'Nombre', 'Precio')
-}
 
 @Component({
   selector: 'app-table',
@@ -15,41 +10,30 @@ export interface TableColumn {
   templateUrl: './table.html',
 })
 export class Table implements OnChanges {
-  // Datos genéricos a mostrar (Clientes, Perros, Componentes, etc.)
+  // Datos que vienen del backend (cuerpo del JSON de la BD)
   @Input() dataSource: any[] = [];
 
-  // Configuración opcional de columnas a mostrar y sus encabezados
-  @Input() columns: TableColumn[] = [];
-
-  constructor(private cdr: ChangeDetectorRef) {}
+  // Columnas extraídas automáticamente a partir de las claves (keys) del JSON
+  displayedColumns: string[] = [];
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['dataSource'] || changes['columns']) {
-      this.cdr.markForCheck();
+    if (changes['dataSource']) {
+      this.generarColumnasDesdeJson();
     }
   }
 
-  // Si no se especifican columnas, se infieren automáticamente del primer objeto
-  get effectiveColumns(): TableColumn[] {
-    if (this.columns && this.columns.length > 0) {
-      return this.columns;
-    }
+  // Genera las columnas dinámicamente según la estructura del primer objeto del JSON
+  private generarColumnasDesdeJson(): void {
     if (this.dataSource && this.dataSource.length > 0) {
-      return Object.keys(this.dataSource[0]).map((key) => ({
-        key,
-        header: this.formatHeader(key),
-      }));
+      this.displayedColumns = Object.keys(this.dataSource[0]);
+    } else {
+      this.displayedColumns = [];
     }
-    return [];
   }
 
-  // Lista de identificadores de columna requeridos por mat-header-row y mat-row
-  get displayedColumnKeys(): string[] {
-    return this.effectiveColumns.map((col) => col.key);
-  }
-
-  // Formatea 'categoria_nombre' -> 'Categoria Nombre'
-  private formatHeader(key: string): string {
+  // Formato simple para los encabezados (ej: "categoria_nombre" -> "Categoria Nombre")
+  formatHeader(key: string): string {
+    if (!key) return '';
     if (key.toLowerCase() === 'id') return 'ID';
     return key
       .replace(/_/g, ' ')

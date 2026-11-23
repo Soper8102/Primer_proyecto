@@ -14,16 +14,6 @@ import { Perro } from '../../Models/PerroModels';
 })
 export class PerroComponent implements OnInit {
   perros = signal<Perro[]>([]);
-
-  // Configuración para la tabla genérica
-  columnasPerros = [
-    { key: 'id', header: 'ID' },
-    { key: 'nombre', header: 'Nombre' },
-    { key: 'edad', header: 'Edad (años)' },
-    { key: 'raza', header: 'Raza' },
-    { key: 'color', header: 'Color' }
-  ];
-
   loading = signal<boolean>(true);
   error = signal<string>('');
 

@@ -12,16 +12,6 @@ import { Cliente } from '../../Models/ClientesModels';
 export class Clientes implements OnInit {
   clientes = signal<Cliente[]>([]);
 
-  columnasClientes = [
-    { key: 'id', header: 'ID' },
-    { key: 'nombre', header: 'Nombre' },
-    { key: 'apellido', header: 'Apellido' },
-    { key: 'email', header: 'Correo Electrónico' },
-    { key: 'telefono', header: 'Teléfono' },
-    { key: 'direccion', header: 'Dirección' },
-    { key: 'estado', header: 'Estado' }
-  ];
-
   constructor(
     private clientesService: ClientesService,
     private cdr: ChangeDetectorRef

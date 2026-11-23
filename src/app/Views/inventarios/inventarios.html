@@ -22,7 +22,7 @@
   <!-- Tabla de datos genérica -->
   @if (!loading() && !error() && componentes().length > 0) {
   <div class="table-wrapper">
-    <app-table [dataSource]="componentes()" [columns]="columnasInventario"></app-table>
+    <app-table [dataSource]="componentes()"></app-table>
   </div>
 
   <div class="summary">
