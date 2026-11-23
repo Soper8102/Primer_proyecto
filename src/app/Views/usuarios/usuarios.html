@@ -1,1 +1,40 @@
-<p>usuarios works!</p>
+<div class="usuarios-container">
+  <div class="header-section">
+    <h2>Listado de Usuarios</h2>
+    <p>Usuarios registrados en el sistema</p>
+  </div>
+
+  <!-- Estado de carga -->
+  @if (loading()) {
+  <div class="loading-container">
+    <div class="spinner"></div>
+    <p>Cargando usuarios...</p>
+  </div>
+  }
+
+  <!-- Mensaje de error -->
+  @if (error()) {
+  <div class="error-container">
+    <p>⚠️ {{ error() }}</p>
+    <button class="btn-retry" (click)="cargarUsuarios()">Reintentar</button>
+  </div>
+  }
+
+  <!-- Tabla de datos genérica -->
+  @if (!loading() && !error() && usuarios().length > 0) {
+  <div class="table-wrapper">
+    <app-table [dataSource]="usuarios()"></app-table>
+  </div>
+
+  <div class="summary">
+    <p>Total de usuarios registrados: <strong>{{usuarios().length}}</strong></p>
+  </div>
+  }
+
+  <!-- Sin datos -->
+  @if (!loading() && !error() && usuarios().length === 0) {
+  <div class="empty-container">
+    <p>No hay usuarios registrados en el sistema.</p>
+  </div>
+  }
+</div>

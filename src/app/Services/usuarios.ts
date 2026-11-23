@@ -11,6 +11,11 @@ export class UsuarioService {
     private url = `${API_BASE_URL}/api/usuarios`;
     constructor(private http: HttpClient) { }
 
+    // Obtener todos los usuarios registrados
+    getUsuarios(): Observable<any[]> {
+        return this.http.get<any[]>(this.url);
+    }
+
     // Iniciar sesión
     login(data: Partial<Usuario>): Observable<any> {
         return this.http.post<any>(`${this.url}/login`, data);
